@@ -1,0 +1,19 @@
+.focused{
+	outline: 0 !important;
+	border: 1px solid #cce7d0;
+    box-shadow: 20px 20px 30px rgba(0,0,0,0.02) !important;
+	transition: 0.2s ease;
+}
+
+.errorlist li{
+	color: red;
+}
+
+.dropdown:hover>.dropdown-menu {
+	display: block;
+}
+  
+.dropdown>.dropdown-toggle:active {
+/*Without this, clicking will make it sticky*/
+	pointer-events: none;
+}

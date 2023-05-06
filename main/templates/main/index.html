@@ -1,0 +1,73 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block content %}
+<!-- Home Slider -->
+<div id="carouselExampleIndicators" class="carousel carousel-dark slide carousel-fade" data-ride="carousel">
+  <ol class="carousel-indicators">
+    {% for banner in banners %}
+    {% if forloop.counter == 1 %}
+    <li data-target="#carouselExampleIndicators" data-slide-to="{{forloop.counter}}" class="active"></li>
+    {% else %}
+    <li data-target="#carouselExampleIndicators" data-slide-to="{{forloop.counter}}"></li>
+    {% endif %}
+    {% endfor %}
+  </ol>
+  <div class="carousel-inner">
+    {% for banner in banners %}
+    {% if forloop.counter == 1 %}
+    <div class="carousel-item active">
+      {% else %}
+      <div class="carousel-item"></div>
+      {% endif %}
+      <img src="/media/{{banner.img}}" class="d-block w-100" alt="...">
+    </div>
+    {% endfor %}
+  </div>
+  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
+
+ 
+
+<main class="container my-4">
+	<!-- Featured Products -->
+	<h3 class="my-4 border-bottom pb-1">Featured Products</h3>
+	<div class="row">
+    {% if data %}{% for brand in data %}
+		<div class="col-md-3 mb-4">
+			<div class="card shadow">
+			  <a href="/product/{{brand.slug}}/{{brand.id}}"><img src= "/media/{{brand.productattribute_set.first.image}}" class="card-img-top" alt="{{product.title}}"></a>
+			  <div class="card-body">
+			    <h5 class="card-text"><a href="/product/{{brand.slug}}/{{brand.id}}">{{brand.title}}</a></h5>
+          <th>₹<span class="product-price-{{brand.id}}">{{brand.productattribute_set.first.price}}</span></th>
+          <!-- <h6>₹ <span class="product-price-{{product.id}}">{{brand.price}}</span></h6> -->
+			  </div>
+			  <div class="card-footer">
+
+          <input type="hidden" value="1" class="form-control product-qty-{{brand.id}}" id="brandQty" />
+          <input type="hidden" class="product-image-{{brand.id}}" value="{{brand.productattribute_set.first.image}}" />
+          <input type="hidden" class="product-id-{{brand.id}}" value="{{brand.id}}" />
+          
+          <input type="hidden" class="product-title-{{brand.id}}" value="{{brand.title}}" />
+
+			  	<button class="btn btn-sm btn-primary add-to-cart" data-index="{{brand.id}}"><i class="fa-sharp fa-solid fa-cart-shopping"></i></button>
+			  	<button class="btn btn-sm btn-danger add-wishlist" data-product="{{brand.id}}"><i class="fa-regular fa-heart"></i></button>
+
+			  	<span class="float-right">
+			  		{{brand.rating}}
+			  		<i class="fa-solid fa-st"></i>
+			  	</span>
+			  </div>
+			</div>
+		</div>
+    {% endfor %}{% endif %}
+	</div>
+	<p class="my-4 text-center"><a href="http://127.0.0.1:8000/product-list" class="btn btn-dark btn-sm">All Products <i class="fa fa-long-arrow-alt-right"></i></a></p>
+</main>
+{% endblock %}

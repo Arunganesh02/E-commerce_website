@@ -1,0 +1,34 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block content %}
+<main class="container my-4">
+	<!-- Featured Products -->
+	<h3 class="my-4 border-bottom pb-1">SignUp</h3>
+	<h5 class="my-4 pb-1" color = "red">Please follow the rules while entering the details</h3>
+
+	</ul>
+
+	<table class="table table-bordered">
+		<form method="post">
+			{% csrf_token %}
+
+				{{form.as_table}}
+				<tr>
+					<td colspan="2">
+						<input onclick = "func()"type="submit" value="Register" class="btn btn-primary" />
+					</td>
+				</tr>
+				{% if messages %}
+				<ul class="messages">
+				{% for message in messages %}
+					<!-- <h4{% if message.tags %} class="{{ message.tags }}"{% endif %} style="color:rgb(230, 28, 213);">*{{ message }}</h4> -->
+					<script>
+							alert("{{ message }}")
+					</script>
+				{% endfor %}
+				{% endif %}				
+		</form>
+	</table>
+
+</main>
+{% endblock %}
